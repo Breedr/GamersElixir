@@ -20,7 +20,8 @@
             android:layout_weight="1">
 
             <ImageView
-                android:contentDescription="@string/abc_action_bar_home_description"
+                android:contentDescription="@string/app_name"
+                android:transitionName="post"
                 android:id="@+id/feature_image"
                 android:layout_width="fill_parent"
                 android:layout_height="fill_parent" />

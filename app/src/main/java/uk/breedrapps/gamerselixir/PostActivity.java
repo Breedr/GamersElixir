@@ -7,6 +7,7 @@ import android.support.design.widget.FloatingActionButton;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -101,7 +102,7 @@ public class PostActivity extends AppCompatActivity {
         tagView.setTags(tags ," ");
     }
 
-    private void loadAuthorInfo(){
+    private void loadAuthorInfo() {
         TextView authorInfo = (TextView) findViewById(R.id.author_info);
         SimpleDateFormat formatter = new SimpleDateFormat(getString(R.string.post_date_format), Locale.getDefault());
         String formattedDate = formatter.format(new Date(article.getDate()));
@@ -125,6 +126,15 @@ public class PostActivity extends AppCompatActivity {
                 ));
     }
 
-
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            // Respond to the action bar's Up/Home button
+            case android.R.id.home:
+                supportFinishAfterTransition();
+                return true;
+        }
+        return super.onOptionsItemSelected(item);
+    }
 
 }

@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
+import android.support.v4.app.ActivityOptionsCompat;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -29,7 +30,7 @@ import uk.breedrapps.gamerselixir.R;
  */
 public class NetworkFeedAdapter extends RecyclerView.Adapter<NetworkFeedAdapter.ViewHolder> {
     private List<Article> articleList;
-    private Activity ctx;
+    private Activity activity;
 
     // Provide a reference to the views for each data item
     // Complex data items may need more than one view per item, and
@@ -55,8 +56,8 @@ public class NetworkFeedAdapter extends RecyclerView.Adapter<NetworkFeedAdapter.
     }
 
     // Provide a suitable constructor (depends on the kind of dataset)
-    public NetworkFeedAdapter(Activity ctx, List<Article> articleList) {
-        this.ctx = ctx;
+    public NetworkFeedAdapter(Activity activity, List<Article> articleList) {
+        this.activity = activity;
         this.articleList = articleList;
     }
 
@@ -73,14 +74,14 @@ public class NetworkFeedAdapter extends RecyclerView.Adapter<NetworkFeedAdapter.
 
     // Replace the contents of a view (invoked by the layout manager)
     @Override
-    public void onBindViewHolder(ViewHolder holder, int position) {
+    public void onBindViewHolder(final ViewHolder holder, int position) {
         final Article article = articleList.get(position);
 
-        holder.mFeaturedView.setText((article.getTags() != null ? article.getTags().get(0) : ctx.getString(R.string.app_name)));
+        holder.mFeaturedView.setText((article.getTags() != null ? article.getTags().get(0) : activity.getString(R.string.app_name)));
         holder.mTitleText.setText(article.getTitle());
         Uri image = article.getImage();
         String url = image.toString().replace("-150x150", "");
-        Picasso.with(ctx).load(url).error(R.drawable.feed_default).fit().into(holder.mMainImage);
+        Picasso.with(activity).load(url).error(R.drawable.feed_default).fit().into(holder.mMainImage);
 
         holder.mMainImage.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -88,17 +89,19 @@ public class NetworkFeedAdapter extends RecyclerView.Adapter<NetworkFeedAdapter.
                 Context ctx = v.getContext();
                 Intent intent = new Intent(ctx, PostActivity.class);
                 intent.putExtra("article", article);
-                ctx.startActivity(intent);
+                ActivityOptionsCompat options = ActivityOptionsCompat.
+                        makeSceneTransitionAnimation(activity, holder.mMainImage, "post");
+                ctx.startActivity(intent, options.toBundle());
             }
         });
 
-        holder.mCommentText.setText(String.format(ctx.getString(R.string.posted_by), article.getAuthor()));
+        holder.mCommentText.setText(String.format(activity.getString(R.string.posted_by), article.getAuthor()));
 
         DateTime articleTime = new DateTime(article.getDate());
         DateTime now = new DateTime();
         Period period = new Period(articleTime, now);
 
-        holder.mCreatedDate.setText(MessageFormat.format(ctx.getString(R.string.day_number), period.getDays()));
+        holder.mCreatedDate.setText(MessageFormat.format(activity.getString(R.string.day_number), period.getDays()));
         
     }
 
