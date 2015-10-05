@@ -1,0 +1,43 @@
+<resources>
+
+    <string name="version">Versión %1$s</string>
+
+    <string name="posted_by">Escrito por %1$s</string>
+
+    <string name="action_settings">Ajustes</string>
+    <string name="navigation_drawer_open">Abrir</string>
+    <string name="navigation_drawer_close">Cerrar</string>
+    <string name="add_us_social">Seguir Gamers Elixir</string>
+
+    <string name="day_number">{0,choice,0#Hoy|1#Hace 1 Día|1&lt;Hace {0} Días}</string>
+
+    <string name="follower_count">{0,choice,0#No seguidores|1#1 seguidor|1&lt;{0} seguidores}</string>
+
+    <string name="live_viewers">{0,choice,0#0 espectadores|1#1 espectador|1&lt;{0} espectadores}</string>
+
+    <string name="playing">Jugando - %1$s</string>
+    <string name="menu_streamers">Streamers</string>
+    <string name="menu_feed">RSS Noticias</string>
+
+    <string name="error_title">Madre Mia!</string>
+    <string name="error_subtitle">Hay una problema, por favor reintentar.</string>
+    <string name="retry">Reintentar</string>
+    <string name="menu_forum">Foros</string>
+    <string name="share_post">Compartir artículo por…</string>
+    <string name="share_prefix">Echa un vistazo: </string>
+    <string name="tags">Etiquetas</string>
+    <string name="description">Descripción</string>
+    <string name="authored">Autor</string>
+    <string name="written_by">Articulo escrito por %1$s y publicado por %2$s</string>
+    <string name="read_full_article">Leer el articulo completo en Gamers Elixir</string>
+    <string name="no_description">No hay una descripción</string>
+    <string name="ok">OK</string>
+    <string name="cancel">Cancelar</string>
+    <string name="live">En vivo</string>
+    <string name="offline">Desconectado</string>
+    <string name="about">Información</string>
+    <string name="created_by">Creado por Ed George - @edgeorge92\nwww.breedrapps.uk</string>
+    <string name="close">Salir</string>
+    <string name="menu_favourites">Favourites</string>
+
+</resources>

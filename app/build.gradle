@@ -1,0 +1,68 @@
+
+apply plugin: 'com.android.application'
+
+repositories {
+    maven { url 'https://maven.fabric.io/public' }
+}
+import org.moallemi.gradle.internal.VersionCodeType
+apply plugin: 'org.moallemi.advanced-build-version'
+
+advancedVersioning {
+    nameOptions {
+        versionMajor 1
+        versionMinor 0
+        versionPatch 0
+        versionBuild versionCode
+    }
+    codeOptions {
+        versionCodeType VersionCodeType.AUTO_INCREMENT_ONE_STEP
+        dependsOnTasks 'debug', 'release'
+    }
+}
+
+android {
+    compileSdkVersion 23
+    buildToolsVersion "23.0.1"
+
+    defaultConfig {
+        applicationId "uk.breedrapps.gamerselixir"
+        minSdkVersion 16
+        targetSdkVersion 23
+        versionCode advancedVersioning.versionCode
+        versionName advancedVersioning.versionName
+    }
+
+    packagingOptions {
+        exclude 'META-INF/LICENSE.txt'
+        exclude 'META-INF/NOTICE.txt'
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+    }
+}
+
+dependencies {
+    compile fileTree(dir: 'libs', include: ['*.jar'])
+    testCompile 'junit:junit:4.12'
+    compile 'com.android.support:appcompat-v7:23.+'
+    compile 'com.android.support:design:23.+'
+    compile 'com.android.support:appcompat-v7:23.+'
+    compile 'com.android.support:cardview-v7:23.+'
+    compile 'com.android.support:recyclerview-v7:23.+'
+    compile 'joda-time:joda-time:2.8.1'
+    compile 'com.squareup.picasso:picasso:2.5.2'
+    compile 'com.squareup.retrofit:retrofit:1.9.0'
+    compile 'commons-lang:commons-lang:2.6'
+    compile 'com.pkmmte.pkrss:pkrss:1.1.2'
+    compile 'com.parse.bolts:bolts-android:1.+'
+    compile 'com.github.xiprox.errorview:library:2.+'
+    //    Replace .jar with lib once issue with min android version resolved
+    compile 'com.facebook.shimmer:shimmer:0.1.0@aar'
+//    compile('com.crashlytics.sdk.android:crashlytics:2.5.0@aar') {
+//        transitive = true;
+//    }
+}

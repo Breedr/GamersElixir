@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="app_primary_light">#FFECB3</color>
+    <color name="app_primary">#FFC107</color>
+    <color name="app_primary_dark">#FFA000</color>
+    <color name="app_accent">#448AFF</color>
+    <color name="app_favourite">#FFEB3B</color>
+    <color name="app_favourite_dark">#FFD600</color>
+    <color name="black_trans">#aa000000</color>
+    <color name="twitch_purple">#6441A5</color>
+    <color name="light_grey">#cecece</color>
+    <color name="dark_window_background">#ff303030</color>
+</resources>

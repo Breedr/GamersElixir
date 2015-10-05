@@ -1,0 +1,55 @@
+<resources>
+
+    <!-- Base application theme. -->
+    <style name="AppTheme" parent="AppTheme.Base"/>
+
+    <style name="AppThemeTwo" parent="AppThemeTwo.Base"/>
+
+    <style name="AppThemeTwoFavourite" parent="AppThemeTwo.Base">
+        <item name="colorPrimaryDark">@color/app_favourite_dark</item>
+    </style>
+
+    <style name="AppThemeTwo.Base" parent="Theme.AppCompat.Light.NoActionBar">
+        <item name="colorPrimary">@color/app_primary</item>
+        <item name="colorPrimaryDark">@color/app_primary_dark</item>
+        <item name="colorAccent">@color/app_accent</item>
+        <item name="android:windowBackground">@color/dark_window_background</item>
+    </style>
+
+    <style name="AppTheme.Base" parent="Theme.AppCompat">
+        <item name="colorPrimary">@color/app_primary</item>
+        <item name="colorPrimaryDark">@color/app_primary_dark</item>
+        <item name="colorAccent">@color/app_accent</item>
+        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
+    </style>
+
+    <style name="Widget.CardContent" parent="android:Widget">
+        <item name="android:paddingLeft">16dp</item>
+        <item name="android:paddingRight">16dp</item>
+        <item name="android:paddingTop">12dp</item>
+        <item name="android:paddingBottom">16dp</item>
+        <item name="android:orientation">vertical</item>
+        <item name="cardElevation">4dp</item>
+        <item name="cardCornerRadius">4dp</item>
+    </style>
+
+    <style name="Widget.TagView" parent="@android:style/Widget.TextView">
+        <item name="tagCornerRadius">2dp</item>
+        <item name="tagPadding">8dp</item>
+        <item name="tagUppercase">true</item>
+        <item name="android:textColor">#FFFFFF</item>
+        <item name="android:textSize">12sp</item>
+        <item name="android:lineSpacingExtra">4sp</item>
+        <item name="android:layout_marginTop">4dp</item>
+        <item name="android:layout_marginBottom">4dp</item>
+    </style>
+
+    <style name="CustomAppAlertDialogStyle" parent="Theme.AppCompat.Dialog.Alert">
+        <!-- Used for the buttons -->
+        <item name="colorAccent">@color/app_primary</item>
+        <!-- Used for the title and text -->
+        <item name="android:textColorPrimary">@android:color/white</item>
+    </style>
+</resources>
+
