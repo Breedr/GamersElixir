@@ -124,9 +124,7 @@ public class StreamerInfoAdapter extends RecyclerView.Adapter<StreamerInfoAdapte
                 holder.mTitleSubText.setText(String.format(ctx.getString(R.string.playing), twitchChannel.getMetaGame()));
             }
 
-            //SHOW FIRE IF VIEWERS OVER 100? or 10% of followers?
-            if (twitchChannel.getCurrentViewers() != 0
-                    && twitchChannel.getCurrentViewers() >= Math.round(0.1 * twitchChannel.getFollowersCount())){
+            if (twitchChannel.isTrending()){
                 holder.mTimeImage.setImageResource(R.drawable.trending);
             }
         }else{

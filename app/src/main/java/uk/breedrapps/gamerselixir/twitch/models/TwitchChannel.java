@@ -12,6 +12,8 @@ import org.apache.commons.lang.builder.ToStringBuilder;
  */
 public class TwitchChannel implements Comparable {
 
+    private static final int BASE_TREND = 50;
+
     @Expose
     private String name;
     @Expose
@@ -249,6 +251,11 @@ public class TwitchChannel implements Comparable {
 
     @Override
     public int compareTo(@NonNull Object another) {
-        return status.compareTo(((TwitchChannel)another).getStatus());
+        return status.compareTo(((TwitchChannel) another).getStatus());
+    }
+
+    public boolean isTrending() {
+        return  getCurrentViewers() >= BASE_TREND ||
+                getCurrentViewers() >= Math.round(getFollowersCount() * 0.01);
     }
 }
