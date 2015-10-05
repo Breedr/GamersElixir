@@ -6,6 +6,7 @@ import android.content.res.Resources;
 import android.net.Uri;
 import android.util.DisplayMetrics;
 
+import com.parse.ParseAnalytics;
 import com.pkmmte.pkrss.Article;
 
 import java.util.ArrayList;
@@ -84,7 +85,7 @@ public class Utils {
     public static void trackView(String viewName){
         Map<String, String> dimensions = new HashMap<>();
         dimensions.put("view", viewName);
-        //ParseAnalytics.trackEventInBackground("read", dimensions);
+        ParseAnalytics.trackEventInBackground("read", dimensions);
     }
 
     public static void trackArticle(Article article){
@@ -92,7 +93,7 @@ public class Utils {
         dimensions.put("view", Constants.VIEW_NEWS_POST);
         dimensions.put("article_id", Integer.toString(article.getId()));
         dimensions.put("article_author", article.getAuthor());
-        //.trackEventInBackground("read", dimensions);
+        ParseAnalytics.trackEventInBackground("read", dimensions);
     }
 
     public static void trackEvents(String... events){
@@ -104,7 +105,7 @@ public class Utils {
         for(String event : events){
             dimensions.put("event", event);
         }
-        //ParseAnalytics.trackEventInBackground("read", dimensions);
+        ParseAnalytics.trackEventInBackground("read", dimensions);
     }
 
 }
