@@ -40,6 +40,7 @@ public class NetworkFeedFragment extends Fragment implements Callback, SwipeRefr
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
         refreshLayout = (SwipeRefreshLayout) view.findViewById(R.id.swipeRefreshLayout);
         refreshLayout.setOnRefreshListener(this);
+        refreshLayout.setRefreshing(true);
         errorView = (ErrorView) view.findViewById(R.id.error_view);
         errorView.setOnRetryListener(this);
         return view;
