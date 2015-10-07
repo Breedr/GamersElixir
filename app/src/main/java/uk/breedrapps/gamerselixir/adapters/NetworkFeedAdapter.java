@@ -82,7 +82,12 @@ public class NetworkFeedAdapter extends RecyclerView.Adapter<NetworkFeedAdapter.
         holder.mTitleText.setSelected(true);
         Uri image = article.getImage();
         String url = image.toString().replace("-150x150", "");
-        Picasso.with(activity).load(url).error(R.drawable.feed_default).fit().into(holder.mMainImage);
+
+        if(url.isEmpty()){
+            Picasso.with(activity).load(R.drawable.feed_default).fit().into(holder.mMainImage);
+        }else{
+            Picasso.with(activity).load(url).error(R.drawable.feed_default).fit().into(holder.mMainImage);
+        }
 
         holder.mMainImage.setOnClickListener(new View.OnClickListener() {
             @Override
