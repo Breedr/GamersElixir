@@ -1,6 +1,7 @@
 package uk.breedrapps.gamerselixir.adapters;
 
 import android.app.Activity;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -131,7 +132,7 @@ public class StreamerInfoAdapter extends RecyclerView.Adapter<StreamerInfoAdapte
             holder.mTimeImage.setVisibility(View.INVISIBLE);
             holder.mCreatedDate.setVisibility(View.INVISIBLE);
             holder.mTitleSubText.setVisibility(View.GONE);
-            holder.mFeaturedBoxView.setBackgroundColor(ctx.getResources().getColor(R.color.app_primary));
+            holder.mFeaturedBoxView.setBackgroundColor(ContextCompat.getColor(ctx, R.color.app_primary));
             holder.shimmerFrameLayout.stopShimmerAnimation();
         }
     }

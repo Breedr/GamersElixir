@@ -79,6 +79,7 @@ public class NetworkFeedAdapter extends RecyclerView.Adapter<NetworkFeedAdapter.
 
         holder.mFeaturedView.setText((article.getTags() != null ? article.getTags().get(0) : activity.getString(R.string.app_name)));
         holder.mTitleText.setText(article.getTitle());
+        holder.mTitleText.setSelected(true);
         Uri image = article.getImage();
         String url = image.toString().replace("-150x150", "");
         Picasso.with(activity).load(url).error(R.drawable.feed_default).fit().into(holder.mMainImage);
