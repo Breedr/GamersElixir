@@ -17,13 +17,16 @@ import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
 import android.widget.BaseAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
 
 import java.util.List;
 
+import butterknife.ButterKnife;
+import butterknife.InjectView;
+import butterknife.OnClick;
+import butterknife.OnItemClick;
 import uk.breedrapps.gamerselixir.BuildConfig;
 import uk.breedrapps.gamerselixir.R;
 import uk.breedrapps.gamerselixir.classes.MenuListItem;
@@ -59,14 +62,21 @@ public class NavigationDrawerFragment extends Fragment {
      */
     private ActionBarDrawerToggle mDrawerToggle;
 
-    private DrawerLayout mDrawerLayout;
-    private ListView mDrawerListView;
-    private View mFragmentContainerView;
+
+    @InjectView(R.id.navigation_drawer_list)
+    ListView mDrawerListView;
+
+    @InjectView(R.id.version_text)
+    TextView versionText;
+
+    DrawerLayout mDrawerLayout;
+    View mFragmentContainerView;
 
     private int mCurrentSelectedPosition = 0;
     private boolean mFromSavedInstanceState;
     private boolean mUserLearnedDrawer;
     private List<MenuListItem> items;
+
 
     public NavigationDrawerFragment() {
     }
@@ -82,14 +92,12 @@ public class NavigationDrawerFragment extends Fragment {
 
 
         items = Utils.getMenuListItems();
-        
+
         if (savedInstanceState != null) {
             mCurrentSelectedPosition = savedInstanceState.getInt(STATE_SELECTED_POSITION);
             mFromSavedInstanceState = true;
         }
 
-        
-        
         // Select either the default item (0) or the last selected item.
         selectItem(mCurrentSelectedPosition);
     }
@@ -106,53 +114,20 @@ public class NavigationDrawerFragment extends Fragment {
                              Bundle savedInstanceState) {
         View view = inflater.inflate(
                 R.layout.fragment_navigation_drawer, container, false);
-        ((TextView) view.findViewById(R.id.version_text))
-                .setText(String.format(getString(R.string.version), BuildConfig.VERSION_NAME));
 
-        view.findViewById(R.id.social_layout_facebook).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                startActivity(Utils.newFacebookIntent(getActivity().getPackageManager(), Constants.APP_FACEBOOK_URL));
-            }
-        });
+        ButterKnife.inject(this, view);
 
-        view.findViewById(R.id.social_layout_twitch).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                startActivity(Utils.openURLIntent(Constants.APP_TWITCH_URL));
-            }
-        });
 
-        view.findViewById(R.id.social_layout_twitter).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                startActivity(Utils.newTwitterIntent(getActivity().getPackageManager(),
-                        Constants.APP_TWITTER_URL,
-                        Constants.APP_TWITTER_ID));
-            }
-        });
+        versionText.setText(String.format(getString(R.string.version), BuildConfig.VERSION_NAME));
 
-        view.findViewById(R.id.version_info).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                showVersionInfoDialog();
-            }
-        });
-
-        mDrawerListView = (ListView) view.findViewById(R.id.navigation_drawer_list);
-        mDrawerListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                selectItem(position);
-            }
-        });
         mDrawerListView.setAdapter(new MenuListAdapter(getActivity(), items));
         mDrawerListView.setItemChecked(mCurrentSelectedPosition, true);
 
         return view;
     }
 
-    private void showVersionInfoDialog() {
+    @OnClick(R.id.version_info)
+    void showVersionInfoDialog() {
         new AlertDialog.Builder(getActivity(), R.style.CustomAppAlertDialogStyle)
                 .setTitle(R.string.about)
                 .setMessage(R.string.created_by)
@@ -162,6 +137,24 @@ public class NavigationDrawerFragment extends Fragment {
 
     public boolean isDrawerOpen() {
         return mDrawerLayout != null && mDrawerLayout.isDrawerOpen(mFragmentContainerView);
+    }
+
+
+    @OnClick(R.id.social_layout_facebook)
+    void openFacebook(){
+        startActivity(Utils.newFacebookIntent(getActivity().getPackageManager(), Constants.APP_FACEBOOK_URL));
+    }
+
+    @OnClick(R.id.social_layout_twitch)
+    void openTwitch(){
+        startActivity(Utils.openURLIntent(Constants.APP_TWITCH_URL));
+    }
+
+    @OnClick(R.id.social_layout_twitter)
+    void openTwitter(){
+        startActivity(Utils.newTwitterIntent(getActivity().getPackageManager(),
+                Constants.APP_TWITTER_URL,
+                Constants.APP_TWITTER_ID));
     }
 
     /**
@@ -236,7 +229,8 @@ public class NavigationDrawerFragment extends Fragment {
         mDrawerLayout.setDrawerListener(mDrawerToggle);
     }
 
-    private void selectItem(int position) {
+    @OnItemClick(R.id.navigation_drawer_list)
+    void selectItem(int position) {
 
         if(mCurrentSelectedPosition != position) {
 

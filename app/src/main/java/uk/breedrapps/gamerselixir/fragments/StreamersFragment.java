@@ -10,6 +10,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import butterknife.ButterKnife;
+import butterknife.InjectView;
 import retrofit.Callback;
 import retrofit.RetrofitError;
 import retrofit.client.Response;
@@ -25,19 +27,22 @@ import uk.breedrapps.gamerselixir.twitch.models.TwitchTeamChannels;
  * Created by edgeorge on 26/07/15.
  */
 public class StreamersFragment extends Fragment implements Callback<TwitchTeamChannels>, SwipeRefreshLayout.OnRefreshListener, ErrorView.RetryListener {
-    private RecyclerView recyclerView;
-    private SwipeRefreshLayout refreshLayout;
-    private ErrorView errorView;
+    @InjectView(R.id.feed_recycler_view)
+    RecyclerView recyclerView;
+    @InjectView(R.id.swipeRefreshLayout)
+    SwipeRefreshLayout refreshLayout;
+    @InjectView(R.id.error_view)
+    ErrorView errorView;
 
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_feed, container, false);
-        recyclerView = (RecyclerView) view.findViewById(R.id.feed_recycler_view);
+
+        ButterKnife.inject(this, view);
+
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
-        refreshLayout = (SwipeRefreshLayout) view.findViewById(R.id.swipeRefreshLayout);
         refreshLayout.setOnRefreshListener(this);
-        errorView = (ErrorView) view.findViewById(R.id.error_view);
         errorView.setOnRetryListener(this);
         return view;
     }

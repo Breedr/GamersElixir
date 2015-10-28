@@ -10,6 +10,8 @@ import android.support.v7.widget.Toolbar;
 
 import com.parse.ParseAnalytics;
 
+import butterknife.ButterKnife;
+import butterknife.InjectView;
 import uk.breedrapps.gamerselixir.common.Constants;
 import uk.breedrapps.gamerselixir.common.Utils;
 import uk.breedrapps.gamerselixir.fragments.NavigationDrawerFragment;
@@ -19,6 +21,9 @@ import uk.breedrapps.gamerselixir.fragments.StreamersFragment;
 
 public class MainActivity extends AppCompatActivity implements NavigationDrawerFragment.NavigationDrawerCallbacks{
 
+    @InjectView(R.id.toolbar)
+    Toolbar mToolbar;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -26,7 +31,9 @@ public class MainActivity extends AppCompatActivity implements NavigationDrawerF
         ParseAnalytics.trackAppOpenedInBackground(getIntent());
 
         setContentView(R.layout.activity_main);
-        Toolbar mToolbar = (Toolbar) findViewById(R.id.toolbar);
+
+        ButterKnife.inject(this);
+
         setSupportActionBar(mToolbar);
 
 

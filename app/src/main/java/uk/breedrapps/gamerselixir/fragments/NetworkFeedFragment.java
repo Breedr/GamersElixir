@@ -16,6 +16,8 @@ import com.pkmmte.pkrss.PkRSS;
 
 import java.util.List;
 
+import butterknife.ButterKnife;
+import butterknife.InjectView;
 import tr.xip.errorview.ErrorView;
 import uk.breedrapps.gamerselixir.R;
 import uk.breedrapps.gamerselixir.adapters.NetworkFeedAdapter;
@@ -27,21 +29,22 @@ import uk.breedrapps.gamerselixir.common.Constants;
  */
 public class NetworkFeedFragment extends Fragment implements Callback, SwipeRefreshLayout.OnRefreshListener, ErrorView.RetryListener {
 
-    private RecyclerView recyclerView;
-    private SwipeRefreshLayout refreshLayout;
-    private ErrorView errorView;
+    @InjectView(R.id.feed_recycler_view)
+    RecyclerView recyclerView;
+    @InjectView(R.id.swipeRefreshLayout)
+    SwipeRefreshLayout refreshLayout;
+    @InjectView(R.id.error_view)
+    ErrorView errorView;
 
 
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_feed, container, false);
-        recyclerView = (RecyclerView) view.findViewById(R.id.feed_recycler_view);
+        ButterKnife.inject(this, view);
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
-        refreshLayout = (SwipeRefreshLayout) view.findViewById(R.id.swipeRefreshLayout);
         refreshLayout.setOnRefreshListener(this);
         refreshLayout.setRefreshing(true);
-        errorView = (ErrorView) view.findViewById(R.id.error_view);
         errorView.setOnRetryListener(this);
         return view;
     }

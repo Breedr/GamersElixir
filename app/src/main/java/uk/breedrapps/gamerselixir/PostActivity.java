@@ -3,12 +3,10 @@ package uk.breedrapps.gamerselixir;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.CollapsingToolbarLayout;
-import android.support.design.widget.FloatingActionButton;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
-import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -20,6 +18,9 @@ import java.util.Date;
 import java.util.List;
 import java.util.Locale;
 
+import butterknife.ButterKnife;
+import butterknife.InjectView;
+import butterknife.OnClick;
 import uk.breedrapps.gamerselixir.common.Constants;
 import uk.breedrapps.gamerselixir.common.Utils;
 import uk.breedrapps.gamerselixir.view.TagView;
@@ -30,6 +31,25 @@ import uk.breedrapps.gamerselixir.view.TagView;
 public class PostActivity extends AppCompatActivity {
 
     private Article article;
+
+    @InjectView(R.id.toolbar)
+    Toolbar toolbar;
+
+    @InjectView(R.id.author_info)
+    TextView authorInfo;
+
+    @InjectView(R.id.tagView)
+    TagView tagView;
+
+    @InjectView(R.id.backdrop)
+    ImageView backdropImage;
+
+    @InjectView(R.id.collapsing_toolbar)
+    CollapsingToolbarLayout collapsingToolbar;
+
+    @InjectView(R.id.postContent)
+    TextView descriptionText;
+
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -42,36 +62,18 @@ public class PostActivity extends AppCompatActivity {
             setTheme(R.style.AppThemeTwoFavourite);
 
         setContentView(R.layout.activity_news_article);
+        ButterKnife.inject(this);
 
-        final Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
         if(getSupportActionBar() != null)
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
-        FloatingActionButton mShareFab = (FloatingActionButton) findViewById(R.id.fab_share);
-        mShareFab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                shareDialog();
-            }
-        });
+        descriptionText.setText(getFormattedDescription());
 
-        ((TextView) findViewById(R.id.postContent)).setText(getFormattedDescription());
-
-        findViewById(R.id.read_full_article).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Utils.trackEvents(Constants.READ_FULL_ARTICLE_EVENT);
-                startActivity(Utils.openURLIntent(article.getSource().toString()));
-            }
-        });
-
-        CollapsingToolbarLayout collapsingToolbar =
-                (CollapsingToolbarLayout) findViewById(R.id.collapsing_toolbar);
         collapsingToolbar.setTitle(article.getTitle());
 
-        loadBackdrop((ImageView) findViewById(R.id.backdrop));
+        loadBackdrop();
         loadTags(article.getTags());
         loadAuthorInfo();
 
@@ -92,8 +94,6 @@ public class PostActivity extends AppCompatActivity {
     }
 
     private void loadTags(List<String> tagStrings) {
-        TagView tagView = (TagView) findViewById(R.id.tagView);
-
         TagView.Tag[] tags = new TagView.Tag[tagStrings.size()];
         int i = 0;
         for(String tag : article.getTags()){
@@ -103,29 +103,35 @@ public class PostActivity extends AppCompatActivity {
     }
 
     private void loadAuthorInfo() {
-        TextView authorInfo = (TextView) findViewById(R.id.author_info);
         SimpleDateFormat formatter = new SimpleDateFormat(getString(R.string.post_date_format), Locale.getDefault());
         String formattedDate = formatter.format(new Date(article.getDate()));
         authorInfo.setText(String.format(getString(R.string.written_by), article.getAuthor(), formattedDate));
     }
 
-    private void loadBackdrop(ImageView imageView) {
+    private void loadBackdrop() {
         String imageUrl = article.getImage().toString();
         if(imageUrl.isEmpty()){
-            Picasso.with(this).load(R.drawable.feed_default).into(imageView);
+            Picasso.with(this).load(R.drawable.feed_default).into(backdropImage);
         }else{
             Picasso.with(this).load(imageUrl)
-                    .error(R.drawable.feed_default).into(imageView);
+                    .error(R.drawable.feed_default).into(backdropImage);
         }
     }
 
-    private void shareDialog(){
+    @OnClick(R.id.fab_share)
+    void shareDialog(){
         startActivity(
                 Utils.getShareDialogIntent(
                         article.getSource().toString(),
                         getString(R.string.share_prefix) + " " + article.getTitle(),
                         getString(R.string.share_post)
                 ));
+    }
+
+    @OnClick(R.id.read_full_article)
+    void readFullArticleOnline(){
+        Utils.trackEvents(Constants.READ_FULL_ARTICLE_EVENT);
+        startActivity(Utils.openURLIntent(article.getSource().toString()));
     }
 
     @Override
