@@ -67,14 +67,14 @@ public class Utils {
 
     public static List<MenuListItem> getMenuListItems(){
 
-        List<MenuListItem> temp = new ArrayList<>();
+        List<MenuListItem> menuListItems = new ArrayList<>();
 
-        temp.add(new MenuListItem(R.string.menu_feed, R.drawable.ic_newspaper, false));
-        temp.add(new MenuListItem(R.string.menu_favourites, R.drawable.ic_star_white, false));
-        temp.add(new MenuListItem(R.string.menu_streamers, R.drawable.ic_gamepad, false));
-        temp.add(new MenuListItem(R.string.menu_forum, R.drawable.ic_account_multiple, true));
+        menuListItems.add(new MenuListItem(R.string.menu_feed, R.drawable.ic_newspaper, false));
+        menuListItems.add(new MenuListItem(R.string.menu_favourites, R.drawable.ic_star_white, false));
+        menuListItems.add(new MenuListItem(R.string.menu_streamers, R.drawable.ic_gamepad, false));
+        //temp.add(new MenuListItem(R.string.menu_forum, R.drawable.ic_account_multiple, true));
 
-        return temp;
+        return menuListItems;
     }
 
     public static int dpToPx(int dp) {

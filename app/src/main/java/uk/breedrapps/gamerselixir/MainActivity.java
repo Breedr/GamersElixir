@@ -1,6 +1,5 @@
 package uk.breedrapps.gamerselixir;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
@@ -86,12 +85,12 @@ public class MainActivity extends AppCompatActivity implements NavigationDrawerF
                     getSupportActionBar().setTitle(R.string.menu_streamers);
                 Utils.trackView(Constants.VIEW_STREAMERS);
                 break;
-            case 3:
-                Intent intent = Utils.openURLIntent(Constants.APP_FORUMS_URL);
-                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                startActivity(intent);
-                Utils.trackView(Constants.VIEW_FORUMS);
-                return;
+//            case 3:
+//                Intent intent = Utils.openURLIntent(Constants.APP_FORUMS_URL);
+//                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+//                startActivity(intent);
+//                Utils.trackView(Constants.VIEW_FORUMS);
+//                return;
             default:
                 return;
         }
