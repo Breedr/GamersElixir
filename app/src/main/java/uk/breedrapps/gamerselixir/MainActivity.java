@@ -77,7 +77,7 @@ public class MainActivity extends AppCompatActivity implements NavigationDrawerF
 //                if(getSupportActionBar() != null)
 //                    getSupportActionBar().setTitle(R.string.app_name);
 //                Utils.trackView(Constants.VIEW_NETWORK_FEED);
-                Snackbar.make(findViewById(android.R.id.content), "STUB.", Snackbar.LENGTH_LONG).show();
+                Snackbar.make(findViewById(android.R.id.content), R.string.coming_soon, Snackbar.LENGTH_LONG).show();
                 return;
 //                break;
             case 2:
